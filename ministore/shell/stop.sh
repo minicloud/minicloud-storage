@@ -1,0 +1,1 @@
+node /usr/local/miniyun/miniStore/shell/stop.js --config=/usr/local/miniyun/miniStore/config.json &

@@ -1,0 +1,14 @@
+{
+	"nginx_ip":"st1.miniyun.cn",
+	"nginx_port":6081, 
+	"nginx_config_path":"/etc/nginx/conf.d/",
+	"node_port":8081,
+	"name":"store-node1",
+	"logs":"/usr/local/miniyun/miniStore/logs",
+	"safe_code":"uBEEAcKM2D7sxpJD7QQEapsxiCmzPCyS", 
+	"path":[
+		"/usr/local/miniyun/miniStore/data/a",
+		"/usr/local/miniyun/miniStore/data/b",
+		"/usr/local/miniyun/miniStore/data/c"
+	]
+}

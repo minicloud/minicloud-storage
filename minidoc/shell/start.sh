@@ -1,0 +1,1 @@
+node /usr/local/miniyun/miniDoc/main.js --config=/usr/local/miniyun/miniDoc/config.json &

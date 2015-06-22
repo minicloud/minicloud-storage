@@ -1,0 +1,12 @@
+{
+    "nginx_ip":"se1.miniyun.cn",
+    "nginx_port":6071,
+    "nginx_config_path":"/etc/nginx/conf.d/",
+    "node_port":8071,
+    "name":"search-node1",
+    "safe_code":"uBEEAcKM2D7sxpJD7QQEapsxiCmzPCyS",
+    "logs":"/usr/local/miniyun/miniSearch/logs",
+    "txt_save_path":"/usr/local/miniyun/miniSearch/txt",
+    "mysql_db_user":"root",
+    "mysql_db_password":"123456"
+}

@@ -1,0 +1,1 @@
+node /usr/local/miniyun/miniSearch/main.js --config=/usr/local/miniyun/miniSearch/config.json &
