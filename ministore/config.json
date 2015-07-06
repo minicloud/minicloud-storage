@@ -4,11 +4,11 @@
 	"nginx_config_path":"/etc/nginx/conf.d/",
 	"node_port":8081,
 	"name":"store-node1",
-	"logs":"/usr/local/miniyun/miniStore/logs",
+	"logs":"/usr/local/miniyun/services/ministore/logs",
 	"safe_code":"uBEEAcKM2D7sxpJD7QQEapsxiCmzPCyS", 
 	"path":[
-		"/usr/local/miniyun/miniStore/data/a",
-		"/usr/local/miniyun/miniStore/data/b",
-		"/usr/local/miniyun/miniStore/data/c"
+		"/usr/local/miniyun/services/ministore/data/a",
+		"/usr/local/miniyun/services/ministore/data/b",
+		"/usr/local/miniyun/services/ministore/data/c"
 	]
 }
