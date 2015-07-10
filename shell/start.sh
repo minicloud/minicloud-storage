@@ -1,1 +1,1 @@
-node /usr/local/miniyun/services/ministore/main.js --config=/usr/local/miniyun/services/ministore/config.json &
+node /usr/local/miniyun/miniStore/main.js --config=/usr/local/miniyun/miniStore/config.json &
