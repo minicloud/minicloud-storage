@@ -35,8 +35,56 @@ describe(' status', function() {
                 SafeCode: global.appContext.safe_code
             })
             .expect(200)
-            .end() 
+            .end()
         assert(res.body.length > 0, true)
         done()
     })
+    it(' status/check 400', function*(done) {
+        yield request(app)
+            .post('/api/v1/status/check')
+            .type('json')
+            .set({
+                SafeCode: global.appContext.safe_code
+            })
+            .expect(400)
+            .end()
+        done()
+    })
+    it(' status/check 401', function*(done) {
+        yield request(app)
+            .post('/api/v1/status/check')
+            .type('json')
+            .expect(401)
+            .end()
+        done()
+    })
+    it(' status/check 200', function*(done) {
+        yield request(app)
+            .post('/api/v1/status/check')
+            .type('json')
+            .set({
+                SafeCode: global.appContext.safe_code
+            })
+            .send({
+                minicloud_host: 'http://www.bing.com'
+            })
+            .expect(200)
+            .end()
+        done()
+    })
+    it(' status/check 409', function*(done) {
+        yield request(app)
+            .post('/api/v1/status/check')
+            .type('json')
+            .set({
+                SafeCode: global.appContext.safe_code
+            })
+            .send({
+                minicloud_host: 'http://127.0.0.1:1234'
+            })
+            .expect(409)
+            .end()
+        done()
+    })
+
 })
