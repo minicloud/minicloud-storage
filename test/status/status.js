@@ -1,6 +1,6 @@
 var request = require('co-supertest')
 var file = require('co-fs-plus')
-var context = require('../context') 
+var context = require('../context')
 var assert = require('assert')
 describe(' status', function() {
     this.timeout(10000)
@@ -10,15 +10,17 @@ describe(' status', function() {
         return done()
     })
     it(' status/info 200', function*(done) {
-        yield file.mkdirp('/usr/local/miniyun/miniStore/data/a/')
-        yield file.mkdirp('/usr/local/miniyun/miniStore/data/b/')
-        yield file.mkdirp('/usr/local/miniyun/miniStore/data/c/')
+        var paths = global.appContext.path
+        for (var i = 0; i < paths.length; i++) {
+            var subPath = paths[i]
+            yield file.mkdirp(subPath) 
+        }
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
             .expect(200)
             .end()
-        assert(res.body.length>0,true)
+        assert(res.body.length > 0, true)
         done()
     })
 })
