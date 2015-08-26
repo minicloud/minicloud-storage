@@ -1,4 +1,5 @@
 var request = require('co-supertest')
+var file = require('co-fs-plus')
 var context = require('../context') 
 var assert = require('assert')
 describe(' status', function() {
@@ -9,6 +10,9 @@ describe(' status', function() {
         return done()
     })
     it(' status/info 200', function*(done) {
+        yield file.mkdirp('/usr/local/miniyun/miniStore/data/a')
+        yield file.mkdirp('/usr/local/miniyun/miniStore/data/b')
+        yield file.mkdirp('/usr/local/miniyun/miniStore/data/c')
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
