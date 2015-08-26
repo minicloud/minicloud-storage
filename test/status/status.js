@@ -19,7 +19,7 @@ describe(' status', function() {
             .post('/api/v1/status/info')
             .type('json')
             .expect(200)
-            .end()
+            .end() 
         assert(res.body.length > 0, true)
         done()
     })
