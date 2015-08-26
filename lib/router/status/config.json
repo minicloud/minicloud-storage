@@ -1,0 +1,8 @@
+{
+  "name": "store-server-info",
+  "description": "store server info", 
+  "routes": {
+    "/api/v1/status/info": "info"
+  }
+}
+
