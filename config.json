@@ -1,14 +1,138 @@
 {
-	"nginx_ip":"st1.miniyun.cn",
-	"nginx_port":6081, 
-	"nginx_config_path":"/etc/nginx/conf.d/",
-	"node_port":8081,
-	"name":"store-node1",
-	"logs":"/usr/local/miniyun/miniStore/logs",
-	"safe_code":"uBEEAcKM2D7sxpJD7QQEapsxiCmzPCyS", 
-	"path":[
-		"/usr/local/miniyun/miniStore/data/a",
-		"/usr/local/miniyun/miniStore/data/b",
-		"/usr/local/miniyun/miniStore/data/c"
-	]
+    "development": {
+        "pattern": "hybrid",
+        "port": 8032,
+        "debug": true,
+        "version": 2.2,
+        "hybrid": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "tiny": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "private": {
+            "static_host": "http://127.0.0.1:8031"
+        },
+        "mysql": {
+            "host": "127.0.0.1",
+            "port": 3306,
+            "name": "root",
+            "password": "123456",
+            "db_name": "miniyun"
+        },
+        "redis": {
+            "host": "127.0.0.1",
+            "port": 6379,
+            "db": "minicloud",
+            "pass": ""
+        }
+    },
+    "test": {
+        "pattern": "hybrid",
+        "port": 8033,
+        "debug": true,
+        "version": 2.2,
+        "hybrid": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "tiny": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "private": {
+            "static_host": "http://127.0.0.1:8031"
+        },
+        "mysql": {
+            "host": "127.0.0.1",
+            "port": 3306,
+            "user": "root",
+            "password": "123456",
+            "table_prefix":"miniyun_",
+            "database": "minicloud_test"
+        },
+        "sqlite": {
+            "path": "/usr/local/miniyun/test.db"
+        },
+        "redis": {
+            "host": "127.0.0.1",
+            "port": 6379,
+            "db": "minicloud_test",
+            "pass": ""
+        }
+    },
+    "travis-ci": {
+        "pattern": "hybrid",
+        "port": 8033,
+        "debug": true,
+        "version": 2.2,
+        "hybrid": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "tiny": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "private": {
+            "static_host": "http://127.0.0.1:8031"
+        },
+        "mysql": {
+            "host": "127.0.0.1", 
+            "port": 3306,
+            "user": "root",
+            "password": "",
+            "table_prefix":"miniyun_",
+            "database": "minicloud_test"
+        },
+        "postgres": {
+            "host": "127.0.0.1",
+            "user": "postgres", 
+            "database": "minicloud_test"
+        },
+        "redshift": {
+            "host": "127.0.0.1",
+            "user": "postgres", 
+            "database": "minicloud_test"
+        },
+        "mongodb": {
+            "host": "127.0.0.1",
+            "user": "root", 
+            "database": "minicloud_test"
+        },
+        "sqlite": {
+            "path": "minicloud_test.db"
+        },
+        "redis": {
+            "host": "127.0.0.1",
+            "port": 6379,
+            "db": "minicloud",
+            "pass": ""
+        }
+    },
+    "production": {
+        "pattern": "hybrid",
+        "port": 8030,
+        "debug": true,
+        "version": 2.2,
+        "hybrid": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "tiny": {
+            "static_host": "http://static.minicloud.io"
+        },
+        "private": {
+            "static_host": "http://127.0.0.1:8031"
+        },
+        "mysql": {
+            "host": "127.0.0.1",
+            "port": 3306,
+            "user": "root",
+            "table_prefix":"miniyun_",
+            "password": "123456",
+            "database": "miniyun"
+        },
+        "redis": {
+            "host": "127.0.0.1",
+            "port": 6379,
+            "db": "minicloud",
+            "pass": ""
+        }
+    }
 }
