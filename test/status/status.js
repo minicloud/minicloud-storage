@@ -31,11 +31,11 @@ describe(' status', function() {
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
-            .send({
-                safe_code: global.appContext.safe_code
+            .set({
+                SafeCode: global.appContext.safe_code
             })
             .expect(200)
-            .end()
+            .end() 
         assert(res.body.length > 0, true)
         done()
     })
