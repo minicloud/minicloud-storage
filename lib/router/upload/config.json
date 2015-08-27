@@ -1,0 +1,8 @@
+{
+  "name": "store-server-upload",
+  "description": "store server upload", 
+  "routes": {
+    "/api/v1/files/upload": "upload"
+  }
+}
+
