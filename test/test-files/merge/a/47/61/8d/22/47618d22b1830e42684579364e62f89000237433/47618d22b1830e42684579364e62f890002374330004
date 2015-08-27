@@ -1,0 +1,4 @@
+loader/app-loader')(config)
+        global.app = app.listen()
+    }
+    return global.app

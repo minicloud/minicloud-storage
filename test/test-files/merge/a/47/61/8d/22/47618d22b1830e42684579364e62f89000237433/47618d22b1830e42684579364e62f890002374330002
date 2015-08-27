@@ -1,0 +1,8 @@
+= appConfig['travis-ci']
+}
+/**
+ * Return test App
+ * @return {Koa}
+ * @api public
+ */
+expo

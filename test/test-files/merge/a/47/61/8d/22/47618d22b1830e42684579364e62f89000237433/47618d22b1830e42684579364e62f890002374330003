@@ -1,0 +1,3 @@
+rts.getApp = function*() {
+    if (!global.app) {
+        var app = yield require('../lib/

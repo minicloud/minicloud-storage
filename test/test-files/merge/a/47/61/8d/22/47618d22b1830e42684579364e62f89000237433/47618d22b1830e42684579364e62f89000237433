@@ -1,0 +1,3 @@
+var appConfig = require('../config.json')
+var isTravis = Boolean(process.env.CI)
+var confi
