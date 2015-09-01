@@ -1,4 +1,5 @@
 /data
 /logs
 /cache
+/block
 node_modules
