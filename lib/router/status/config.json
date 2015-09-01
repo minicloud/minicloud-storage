@@ -1,10 +1,8 @@
 {
   "name": "store-server-info",
-  "description": "store server info", 
-  "validate_safe_code":true,
+  "description": "store server info",  
   "routes": {
-    "/api/v1/status/info": "info",
-    "/api/v1/status/check": "check"
+    "/api/v1/status/info": "info"
   }
 }
 

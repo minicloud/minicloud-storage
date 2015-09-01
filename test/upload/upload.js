@@ -5,6 +5,7 @@ var context = require('../context')
 var fileHelpers = require('../../lib/file-helpers')
 var assert = require('assert')
 var path = require('path')
+var md5 = require('md5')
     /**
      * delete folder
      * @param {String} sourcePath
@@ -27,7 +28,7 @@ var deleteFolder = function(filePath) {
         fs.rmdirSync(filePath)
     }
 }
-describe(' files/upload', function() {
+describe(' files/upload_session/send', function() {
     this.timeout(10000)
     var app = null
     before(function*(done) {
@@ -38,12 +39,44 @@ describe(' files/upload', function() {
         yield fsPlus.mkdirp('./data')
         return done()
     })
-    it(' /files/upload 401', function*(done) {
+    it(' /files/upload_session/send 400', function*(done) {
         yield request(app)
-            .post('/api/v1/files/upload')
+            .post('/api/v1/files/upload_session/send')
+            .type('json')
+            .expect(400)
+            .end()
+        done()
+    })
+    it(' /files/upload_session/send 401', function*(done) {
+        var sessionId = '1234'
+        var res = yield request(app)
+            .post('/api/v1/files/upload_session/send')
+            .type('json')
+            .send({
+                signature: '1234567',
+                session_id: sessionId
+            })
+            .expect(401)
+            .end()
+        res.body.error.should.equal('invalid_signature')
+        done()
+    })
+    it(' /files/upload_session/send 200', function*(done) {
+        var sessionId = '1234'
+        var signature = md5(global.appContext.safe_code + sessionId)
+        var res = yield request(app)
+            .post('/api/v1/files/upload_session/send')
+            .set({
+                'MiniCloud-API-Arg': JSON.stringify({
+                    session_id: sessionId,
+                    signature: signature
+                })
+            })
             .attach('file', './test/test-files/lt-1k.js')
             .expect(200)
             .end()
+        res.body.hash.should.equal('47618d22b1830e42684579364e62f89000237433')
+        res.body.size.should.equal(452) 
             //assert data 
         var path = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
         assert(fs.existsSync(path), true)
