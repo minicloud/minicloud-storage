@@ -164,4 +164,19 @@ describe(' files/upload_session/block_append', function() {
         res.body.error.should.equal('invalid_signature')
         done()
     })
+    it(' /files/upload_session/block_finish 409', function*(done) {
+        var sessionId = '1234'
+        var signature = md5(global.appContext.safe_code + sessionId)
+        var res = yield request(app)
+            .post('/api/v1/files/upload_session/block_finish')
+            .type('json')
+            .send({
+                session_id: sessionId,
+                signature: signature
+            })
+            .expect(409)
+            .end()
+        res.body.error.should.equal('session_id_not_found')
+        done()
+    })
 })
