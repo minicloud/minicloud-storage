@@ -62,4 +62,20 @@ describe(' status', function() {
         assert(res.body.length > 0, true)
         done()
     })
+    it(' status/info socket.io 200', function*(done) {
+        var paths = global.appContext.path
+        for (var i = 0; i < paths.length; i++) {
+            var subPath = paths[i]
+            yield file.mkdirp(subPath)
+        }
+        global.socket.emit('/api/v1/status/info', {
+            data: {
+                signature: signature,
+                session_id: sessionId
+            }
+        }, function(body) {
+            assert(body.length > 0, true)
+            done()
+        })
+    })
 })
