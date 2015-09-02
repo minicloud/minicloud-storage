@@ -78,7 +78,7 @@ describe(' files/upload_session/send', function() {
             .expect(200)
             .end()
         res.body.hash.should.equal('47618d22b1830e42684579364e62f89000237433')
-        res.body.size.should.equal(452) 
+        res.body.size.should.equal(452)
             //assert data 
         var path = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
         assert(fs.existsSync(path), true)
@@ -87,5 +87,24 @@ describe(' files/upload_session/send', function() {
         assert(files.length + 1, 1)
         done()
     })
-
+    it(' /files/upload_session/send socket.io 200', function*(done) {
+        var sessionId = '1234'
+        var signature = md5(global.appContext.safe_code + sessionId)
+        var fs = require('fs')
+        fs.readFile('./test/test-files/lt-1k.js', function(err, buf) {
+            global.socket.emit('/api/v1/files/upload_session/send', {
+                header: {
+                    'MiniCloud-API-Arg': JSON.stringify({
+                        session_id: sessionId,
+                        signature: signature
+                    })
+                },
+                buffer: buf
+            }, function(body) {
+                body.hash.should.equal('47618d22b1830e42684579364e62f89000237433')
+                body.size.should.equal(452)
+                done()
+            })
+        })
+    })
 })
