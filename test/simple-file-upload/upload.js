@@ -29,7 +29,7 @@ var deleteFolder = function(filePath) {
     }
 }
 describe(' files/upload_session/send', function() {
-    this.timeout(10000)
+    this.timeout(20000)
     var app = null
     before(function*(done) {
         app = yield context.getApp()
