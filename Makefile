@@ -20,7 +20,7 @@ TESTS = test/large-file-upload \
         test/unit
 		
 test:
-	@NODE_ENV=test $(BIN)  \
+	@NODE_ENV=test $(BIN) $(FLAGS) \
 		./node_modules/.bin/_mocha \
 		$(REQUIRED) \
 		$(TESTS) \

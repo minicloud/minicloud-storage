@@ -51,11 +51,9 @@ describe(' files/upload_session/send', function() {
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .type('json')
-            .set({
-                'MiniCloud-API-Arg': JSON.stringify({
-                    session_id: sessionId,
-                    signature: '1234567'
-                })
+            .send({
+                session_id: '12345',
+                signature: '1234567'
             })
             .expect(401)
             .end()
