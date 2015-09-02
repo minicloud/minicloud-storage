@@ -29,7 +29,7 @@ var deleteFolder = function(filePath) {
     }
 }
 describe(' files/upload_session/send', function() {
-    this.timeout(20000)
+    this.timeout(30000)
     var app = null
     before(function*(done) {
         app = yield context.getApp()
@@ -48,7 +48,6 @@ describe(' files/upload_session/send', function() {
         done()
     })
     it(' /files/upload_session/send 401', function*(done) {
-        var sessionId = '1234'
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .type('json')
