@@ -53,6 +53,30 @@ describe(' files/download', function() {
         done()
     })
     it(' /files/download 200', function*(done) {
+        //upload file
+        var sessionId = '1234'
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
+        yield request(app)
+            .post('/api/v1/files/upload_session/send')
+            .set({
+                'MiniCloud-API-Arg': JSON.stringify({
+                    session_id: sessionId,
+                    signature: signature,
+                    time: time
+                })
+            })
+            .attach('file', './test/test-files/lt-1k.js')
+            .expect(200)
+            .end()
+            //download file
+        var hash = '47618d22b1830e42684579364e62f89000237433'
+        var time = new Date().getTime()
+        var signature = md5(hash + time + global.appContext.safe_code)
+        yield request(app)
+            .get('/api/v1/files/download?hash=' + hash + '&name=测试.doc&signature=' + signature + '&time=' + time)
+            .expect(200)
+            .end()
         done()
     })
 })
