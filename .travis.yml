@@ -5,6 +5,8 @@ node_js:
   - "iojs-v2"
 sudo: false
 
+service:
+    - imagick
 
 script: "make test-travis"
 
