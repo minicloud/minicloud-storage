@@ -53,6 +53,32 @@ describe(' files/thumbnail', function() {
         done()
     })
     it(' /files/thumbnail 200', function*(done) {
+        //upload file
+        var sessionId = '1234'
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var filePath = './test/test-files/test.jpg'
+        yield request(app)
+            .post('/api/v1/files/upload_session/send')
+            .set({
+                'MiniCloud-API-Arg': JSON.stringify({
+                    session_id: sessionId,
+                    signature: signature,
+                    time: time
+                })
+            })
+            .attach('file', filePath)
+            .expect(200)
+            .end()
+            //thumbnail
+        var hash = '3f508ce9d029e909cfef52f3b47d88204d79eced'
+        var time = new Date().getTime()
+        var signature = md5(hash + time + global.appContext.safe_code)
+        var res = yield request(app)
+            .get('/api/v1/files/thumbnail?hash=' + hash + '&name=test.jpg&signature=' + signature + '&time=' + time+'&size=w32h32')
+            .expect(200)
+            .end()
+        // console.log(res)
         done()
     })
 })
