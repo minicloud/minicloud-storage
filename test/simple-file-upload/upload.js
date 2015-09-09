@@ -48,27 +48,49 @@ describe(' files/upload_session/send', function() {
         done()
     })
     it(' /files/upload_session/send 401', function*(done) {
+        var time = new Date().getTime()
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .type('json')
             .send({
                 session_id: '12345',
-                signature: '1234567'
+                signature: '1234567',
+                time: time
             })
             .expect(401)
             .end()
         res.body.error.should.equal('invalid_signature')
         done()
     })
+    it(' /files/upload_session/send 409', function*(done) {
+        var sessionId = '1234'
+        var time = new Date().getTime()
+        time -= 24 * 60 * 60 + 10
+        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var res = yield request(app)
+            .post('/api/v1/files/upload_session/send')
+            .type('json')
+            .send({
+                session_id: sessionId,
+                signature: signature,
+                time: time
+            })
+            .expect(409)
+            .end()
+        res.body.error.should.equal('session_timeout')
+        done()
+    })
     it(' /files/upload_session/send 200', function*(done) {
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .set({
                 'MiniCloud-API-Arg': JSON.stringify({
                     session_id: sessionId,
-                    signature: signature
+                    signature: signature,
+                    time: time
                 })
             })
             .attach('file', './test/test-files/lt-1k.js')
@@ -86,14 +108,16 @@ describe(' files/upload_session/send', function() {
     })
     it(' /files/upload_session/send socket.io 200', function*(done) {
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var fs = require('fs')
         fs.readFile('./test/test-files/lt-1k.js', function(err, buf) {
             global.socket.emit('/api/v1/files/upload_session/send', {
                 header: {
                     'MiniCloud-API-Arg': JSON.stringify({
                         session_id: sessionId,
-                        signature: signature
+                        signature: signature,
+                        time: time
                     })
                 },
                 buffer: buf

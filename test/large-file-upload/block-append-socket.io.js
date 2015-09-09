@@ -30,7 +30,8 @@ var deleteFolder = function(filePath) {
 }
 var uploadBlock = function(blockInfo) {
     var sessionId = '1234'
-    var signature = md5(global.appContext.safe_code + sessionId)
+    var time = new Date().getTime()
+    var signature = md5(sessionId + time + global.appContext.safe_code)
     var fs = require('fs')
     var rootPath = './test/test-files/merge/a/47/61/8d/22/47618d22b1830e42684579364e62f89000237433'
     var blockPath = path.join(rootPath, blockInfo.file_name)
@@ -41,7 +42,8 @@ var uploadBlock = function(blockInfo) {
                     'MiniCloud-API-Arg': JSON.stringify({
                         session_id: sessionId,
                         signature: signature,
-                        offset: blockInfo.offset
+                        offset: blockInfo.offset,
+                        time: time
                     })
                 },
                 buffer: buf
@@ -68,7 +70,8 @@ describe(' files/upload_session/block_append', function() {
 
     it(' /files/upload_session/block_append socket.io 200', function*(done) {
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var blocks = [{
             offset: 0,
             file_name: '47618d22b1830e42684579364e62f89000237433'
@@ -95,7 +98,8 @@ describe(' files/upload_session/block_append', function() {
         global.socket.emit('/api/v1/files/upload_session/block_finish', {
             data: {
                 session_id: sessionId,
-                signature: signature
+                signature: signature,
+                time: time
             }
         }, function(body) {
             var co = require('co')

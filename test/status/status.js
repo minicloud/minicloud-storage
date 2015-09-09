@@ -30,16 +30,36 @@ describe(' status', function() {
             yield file.mkdirp(subPath)
         }
         var sessionId = '1234'
+        var time = new Date().getTime()
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
             .send({
                 signature: '1234567',
-                session_id: sessionId
+                session_id: sessionId,
+                time: time
             })
             .expect(401)
             .end()
         res.body.error.should.equal('invalid_signature')
+        done()
+    })
+    it(' status/info 409', function*(done) {
+        var sessionId = '1234'
+        var time = new Date().getTime()
+        time-=24*60*60+10
+        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var res = yield request(app)
+            .post('/api/v1/status/info')
+            .type('json')
+            .send({
+                signature: signature,
+                session_id: sessionId,
+                time: time
+            })
+            .expect(409)
+            .end()
+        res.body.error.should.equal('session_timeout')
         done()
     })
     it(' status/info 200', function*(done) {
@@ -49,13 +69,15 @@ describe(' status', function() {
             yield file.mkdirp(subPath)
         }
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
             .send({
                 signature: signature,
-                session_id: sessionId
+                session_id: sessionId,
+                time: time
             })
             .expect(200)
             .end()
@@ -68,10 +90,14 @@ describe(' status', function() {
             var subPath = paths[i]
             yield file.mkdirp(subPath)
         }
+        var sessionId = '1234'
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         global.socket.emit('/api/v1/status/info', {
             data: {
                 signature: signature,
-                session_id: sessionId
+                session_id: sessionId,
+                time: time
             }
         }, function(body) {
             assert(body.length > 0, true)

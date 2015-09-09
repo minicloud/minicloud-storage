@@ -67,7 +67,8 @@ describe(' files/upload_session/block_append', function() {
     })
     it(' /files/upload_session/block_append 400 check offset', function*(done) {
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_append')
             .type('json')
@@ -75,7 +76,8 @@ describe(' files/upload_session/block_append', function() {
                 'MiniCloud-API-Arg': JSON.stringify({
                     session_id: sessionId,
                     signature: signature,
-                    offset: 'abcd'
+                    offset: 'abcd',
+                    time: time
                 })
             })
             .expect(400)
@@ -84,7 +86,8 @@ describe(' files/upload_session/block_append', function() {
     })
     it(' /files/upload_session/block_append 200', function*(done) {
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var rootPath = './test/test-files/merge/a/47/61/8d/22/47618d22b1830e42684579364e62f89000237433'
         var blocks = [{
             offset: 0,
@@ -114,7 +117,8 @@ describe(' files/upload_session/block_append', function() {
                     'MiniCloud-API-Arg': JSON.stringify({
                         session_id: sessionId,
                         signature: signature,
-                        offset: blockInfo.offset
+                        offset: blockInfo.offset,
+                        time: time
                     })
                 })
                 .attach('file', blockPath)
@@ -125,7 +129,8 @@ describe(' files/upload_session/block_append', function() {
             .post('/api/v1/files/upload_session/block_finish')
             .send({
                 session_id: sessionId,
-                signature: signature
+                signature: signature,
+                time: time
             })
             .expect(200)
             .end()
@@ -152,12 +157,15 @@ describe(' files/upload_session/block_append', function() {
     })
     it(' /files/upload_session/block_finish 401', function*(done) {
         var sessionId = '1234'
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_finish')
             .type('json')
             .send({
                 session_id: sessionId,
-                signature: '1234'
+                signature: '1234',
+                time: time
             })
             .expect(401)
             .end()
@@ -166,17 +174,37 @@ describe(' files/upload_session/block_append', function() {
     })
     it(' /files/upload_session/block_finish 409', function*(done) {
         var sessionId = '1234'
-        var signature = md5(global.appContext.safe_code + sessionId)
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_finish')
             .type('json')
             .send({
                 session_id: sessionId,
-                signature: signature
+                signature: signature,
+                time: time
             })
             .expect(409)
             .end()
         res.body.error.should.equal('session_id_not_found')
+        done()
+    })
+    it(' /files/upload_session/block_finish 409 session_timeout', function*(done) {
+        var sessionId = '1234'
+        var time = new Date().getTime() 
+        time-=24*60*60+10 
+        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var res = yield request(app)
+            .post('/api/v1/files/upload_session/block_finish')
+            .type('json')
+            .send({
+                session_id: sessionId,
+                signature: signature,
+                time: time
+            })
+            .expect(409)
+            .end()
+        res.body.error.should.equal('session_timeout')
         done()
     })
 })

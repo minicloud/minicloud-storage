@@ -1,6 +1,7 @@
 {
   "name": "store-server-upload",
   "description": "store server upload", 
+  "validate":"session_id",
   "routes": {
     "/api/v1/files/upload_session/send": "send"
   }
