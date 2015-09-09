@@ -14,7 +14,9 @@ endif
 
 REQUIRED = --require should --require should-http --require co-mocha
 
-TESTS = test/large-file-upload \
+TESTS = test/file-download \
+ 		test/file-thumbnail \
+		test/large-file-upload \
  		test/simple-file-upload \
         test/status \
         test/unit

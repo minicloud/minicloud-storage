@@ -1,0 +1,9 @@
+{
+  "name": "store-server-info",
+  "description": "store server info", 
+  "validate":"hash",  
+  "routes": { 
+  	  "/api/v1/files/thumbnail": "thumbnail"
+  }
+}
+

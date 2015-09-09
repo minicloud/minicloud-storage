@@ -6,39 +6,12 @@ var fileHelpers = require('../../lib/file-helpers')
 var assert = require('assert')
 var path = require('path')
 var md5 = require('md5')
-    /**
-     * delete folder
-     * @param {String} sourcePath
-     * @param {String} aimPath   
-     * @return {Boolean}
-     * @api private
-     */
-var deleteFolder = function(filePath) {
-    var files = []
-    if (fs.existsSync(filePath)) {
-        files = fs.readdirSync(filePath)
-        files.forEach(function(file, index) {
-            var curPath = path.join(filePath, file)
-            if (fs.statSync(curPath).isDirectory()) { // recurse
-                deleteFolder(curPath)
-            } else { // delete file
-                fs.unlinkSync(curPath)
-            }
-        })
-        fs.rmdirSync(filePath)
-    }
-}
+
 describe(' files/upload_session/block_append', function() {
     this.timeout(20000)
     var app = null
     before(function*(done) {
         app = yield context.getApp()
-        deleteFolder('./cache')
-        deleteFolder('./data')
-        deleteFolder('./block')
-        yield fsPlus.mkdirp('./cache')
-        yield fsPlus.mkdirp('./data')
-        yield fsPlus.mkdirp('./block')
         return done()
     })
     it(' /files/upload_session/block_append 400', function*(done) {
