@@ -43,8 +43,38 @@ describe(' file-helpers.js', function() {
         if (!oldPath) {
             var newPath = fileHelpers.getFilePath(paths, '57618d22b1830e42684579364e62f89000237433')
             var existed = fs.existsSync(newPath)
-            assert(!existed, true) 
+            assert(!existed, true)
         }
         done()
+    })
+    it('createThumbnail', function*(done) {
+        var fs = require('fs')
+        var co = require('co')
+        var sourcePath = './test/test-files/test.jpg'
+        var aimPath = './data/abc.jpg'
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', '256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos>1,true)
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'hac')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos>1,true)
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', '1h32')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos>1,true)
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'wah32')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos>1,true)
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'w32h32')
+                var pos = thumbnailPath.indexOf('32x32')
+                assert(pos>1,true)
+                done()
+            })()
+        })
+
     })
 })
