@@ -47,7 +47,7 @@ describe(' file-helpers.js', function() {
         }
         done()
     })
-    it('createThumbnail', function*(done) {
+    it('createThumbnail parse size', function*(done) {
         var fs = require('fs')
         var co = require('co')
         var sourcePath = './test/test-files/test.jpg'
@@ -59,22 +59,191 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', '256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos>1,true)
+                assert(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'hac')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos>1,true)
+                assert(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', '1h32')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos>1,true)
+                assert(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'wah32')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos>1,true)
+                assert(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'w32h32')
                 var pos = thumbnailPath.indexOf('32x32')
-                assert(pos>1,true)
+                assert(pos > 1, true)
                 done()
             })()
         })
-
+    })
+    it('createThumbnail ai', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.ai'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
+    })
+    it('createThumbnail psd', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.psd'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
+    })
+    it('createThumbnail jpg', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.jpg'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
+    })
+    it('createThumbnail gif', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.gif'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
+    })
+    it('createThumbnail bmp', function*(done) {
+            //ok
+            var fs = require('fs')
+            var co = require('co')
+            var path = require('path')
+            var sourcePath = './test/test-image/test.bmp'
+            var aimPath = './data/' + path.basename(sourcePath)
+            var readStream = fs.createReadStream(sourcePath)
+            var writeFile = fs.createWriteStream(aimPath)
+            readStream.pipe(writeFile)
+            readStream.on("end", function() {
+                co.wrap(function*() {
+                    var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                    var pos = thumbnailPath.indexOf('256x256')
+                    assert(pos > 1, true)
+                    done()
+                })()
+            })
+        })
+        // it('createThumbnail cdr', function*(done) {
+        //         var fs = require('fs')
+        //         var co = require('co')
+        //         var path = require('path')
+        //         var sourcePath = './test/test-image/test.cdr'
+        //         var aimPath = './data/' + path.basename(sourcePath)
+        //         var readStream = fs.createReadStream(sourcePath)
+        //         var writeFile = fs.createWriteStream(aimPath)
+        //         readStream.pipe(writeFile)
+        //         readStream.on("end", function() {
+        //             co.wrap(function*() {
+        //                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+        //                 var pos = thumbnailPath.indexOf('256x256')
+        //                 assert(pos > 1, true)
+        //                 done()
+        //             })()
+        //         })
+        //     })
+    it('createThumbnail eps', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.eps'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
+    })
+    it('createThumbnail tif', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.tif'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
+    })
+    it('createThumbnail png', function*(done) {
+        //ok
+        var fs = require('fs')
+        var co = require('co')
+        var path = require('path')
+        var sourcePath = './test/test-image/test.png'
+        var aimPath = './data/' + path.basename(sourcePath)
+        var readStream = fs.createReadStream(sourcePath)
+        var writeFile = fs.createWriteStream(aimPath)
+        readStream.pipe(writeFile)
+        readStream.on("end", function() {
+            co.wrap(function*() {
+                var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
+                var pos = thumbnailPath.indexOf('256x256')
+                assert(pos > 1, true)
+                done()
+            })()
+        })
     })
 })
