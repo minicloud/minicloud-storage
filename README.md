@@ -7,12 +7,14 @@
   minicloud-storage v1.0 beta1,Lightweight distributed file storage
 
 ## Installation
+
 ```
 $ git clone http://github.com/minicloud/minicloud-storage
 $ cd minicloud-storage
 $ npm install
 $ npm test
 
+```
 minicloud-storage is supported in all versions of [iojs](https://iojs.org) without any flags.To use minicloud-storage with node, you must be running __node 0.12.0__ or higher for generator and promise support, and must run node(1)
   with the `--harmony-generators` or `--harmony` flag.
 
