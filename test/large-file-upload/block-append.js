@@ -41,7 +41,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_append 409', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        time-=24*60*60+10
+        time -= 24 * 60 * 60 * 1000 + 10
         var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_append')
@@ -50,7 +50,7 @@ describe(' files/upload_session/block_append', function() {
                 'MiniCloud-API-Arg': JSON.stringify({
                     session_id: sessionId,
                     signature: signature,
-                    time:time
+                    time: time
                 })
             })
             .expect(409)
@@ -184,8 +184,8 @@ describe(' files/upload_session/block_append', function() {
     })
     it(' /files/upload_session/block_finish 409 session_timeout', function*(done) {
         var sessionId = '1234'
-        var time = new Date().getTime() 
-        time-=24*60*60+10 
+        var time = new Date().getTime()
+        time -= 24 * 60 * 60 * 1000 + 10
         var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_finish')

@@ -30,7 +30,7 @@ describe(' files/download', function() {
     it(' /files/download 409 session_timeout', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        time -= 24 * 60 * 60 + 10
+        time -= 24 * 60 * 60 * 1000 + 10
         var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/download?hash=123456&name=1.doc&signature=' + signature + '&time=' + time)

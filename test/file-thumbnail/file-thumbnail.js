@@ -30,7 +30,7 @@ describe(' files/thumbnail', function() {
     it(' /files/thumbnail 409 session_timeout', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        time -= 24 * 60 * 60 + 10
+        time -= 24 * 60 * 60 * 1000 + 10
         var signature = md5(sessionId + time + global.appContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/thumbnail?hash=123456&name=1.png&signature=' + signature + '&time=' + time)
@@ -75,10 +75,9 @@ describe(' files/thumbnail', function() {
         var time = new Date().getTime()
         var signature = md5(hash + time + global.appContext.safe_code)
         var res = yield request(app)
-            .get('/api/v1/files/thumbnail?hash=' + hash + '&name=test.jpg&signature=' + signature + '&time=' + time+'&size=w32h32')
+            .get('/api/v1/files/thumbnail?hash=' + hash + '&name=test.jpg&signature=' + signature + '&time=' + time + '&size=w32h32')
             .expect(200)
-            .end()
-        // console.log(res)
+            .end() 
         done()
     })
 })
