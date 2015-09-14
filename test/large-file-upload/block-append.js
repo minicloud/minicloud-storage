@@ -38,7 +38,7 @@ describe(' files/upload_session/block_append', function() {
         res.body.error.should.equal('invalid_signature')
         done()
     })
-    it(' /files/upload_session/block_append 409', function*(done) {
+    it(' /files/upload_session/block_append 409 session_timeout', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
         time -= 24 * 60 * 60 * 1000 + 10
@@ -56,6 +56,26 @@ describe(' files/upload_session/block_append', function() {
             .expect(409)
             .end()
         res.body.error.should.equal('session_timeout')
+        done()
+    })
+    it(' /files/upload_session/block_append 409 empty_block', function*(done) {
+        var sessionId = '1234'
+        var time = new Date().getTime()
+        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var res = yield request(app)
+            .post('/api/v1/files/upload_session/block_append')
+            .type('multipart/form')
+            .set({
+                'MiniCloud-API-Arg': JSON.stringify({
+                    session_id: sessionId,
+                    signature: signature,
+                    offset: 0,
+                    time: time
+                })
+            })
+            .expect(409)
+            .end()
+        res.body.error.should.equal('empty_block')
         done()
     })
     it(' /files/upload_session/block_append 400 check offset', function*(done) {
