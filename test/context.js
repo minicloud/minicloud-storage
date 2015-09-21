@@ -40,7 +40,7 @@ var _deleteFolder = function(filePath) {
      */
 exports.getApp = function*() {
     if (!global.app) {
-        var app = yield require('../lib/loader/app-loader')()
+        var app = yield require('../')()
         global.app = app.listen()
         global.socket = yield initSocketClient(app)
     }
