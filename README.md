@@ -11,7 +11,7 @@
 ## Installation
 
 ```
-$ npm install minicloud-storage
+$ npm install minicloud-storage co
 
 ```
 
@@ -35,7 +35,7 @@ $ iojs index.js
 //get current storage node disk space
 //time is current timestamp,can not exceed 24 hours diff with current time.
 //signature=md5(session_id+time+safe_code)
-curl -X POST http://demo.minicloud.io/api/v1/status/info \
+curl -X POST http://127.0.0.1:8031/api/v1/status/info \
     --header "Content-Type: application/json" \
     --data "{\"session_id\":\"xxxxx\",\"signature\":\"xxxx\",\"time\":1278927966}" 
 
