@@ -59,7 +59,7 @@ minicloud-storage is supported in all versions of [iojs](https://iojs.org) witho
 
 - support large file block upload/simple file upload
 
-- support large file content download
+- support file content download
 
 - support return thumbnail for an image.include ai,bmp,eps,gif,jpg,jpeg,png,psd,tif,tiff
 
