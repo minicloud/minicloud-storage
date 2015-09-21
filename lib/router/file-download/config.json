@@ -3,6 +3,6 @@
     "description": "store server info",
     "validate": "hash",
     "routes": {
-        "/api/v1/files/download": "download"
+        "/api/v1/files/download/content": "download"
     }
 }

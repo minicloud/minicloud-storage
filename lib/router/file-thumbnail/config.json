@@ -3,7 +3,7 @@
   "description": "store server info", 
   "validate":"hash",  
   "routes": { 
-  	  "/api/v1/files/thumbnail": "thumbnail"
+  	  "/api/v1/files/thumbnail/content": "thumbnail"
   }
 }
 
