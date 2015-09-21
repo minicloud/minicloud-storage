@@ -4,16 +4,49 @@
   [![devDependency Status](https://david-dm.org/atom/electron/dev-status.svg)](https://david-dm.org/minicloud/minicloud-storage#info=devDependencies)
   
 
-  minicloud-storage v1.0 beta1,Lightweight distributed file storage
+  minicloud-storage v0.5.5,Lightweight distributed file storage.
+
+  It is a minicloud file storage module.it can be deployed separately.
 
 ## Installation
 
 ```
-$ git clone http://github.com/minicloud/minicloud-storage
-$ cd minicloud-storage
-$ npm install
-$ npm test
+$ npm install minicloud-storage
 
+```
+
+## Create file index.js
+```
+require('co').wrap(function*(){
+	var app = yield require('minicloud-storage')()
+	app.listen(8031)
+})()
+
+```
+## Run Server(node>0.12.0)
+```
+$ node --harmony index.js
+or
+$ iojs index.js
+```
+## Test case
+```
+
+//get current storage node disk space
+//time is current timestamp,can not exceed 24 hours diff with current time.
+//signature=md5(session_id+time+safe_code)
+curl -X POST http://demo.minicloud.io/api/v1/status/info \
+    --header "Content-Type: application/json" \
+    --data "{\"session_id\":\"xxxxx\",\"signature\":\"xxxx\",\"time\":1278927966}" 
+
+//If successful, there will be the following information output
+[
+  {
+    path: '/dev/mapper/VolGroup-lv_home',
+    used: 11636604,(unit:kb)
+    total: 2060025240(unit:kb) 
+	}
+]
 ```
 minicloud-storage is supported in all versions of [iojs](https://iojs.org) without any flags.To use minicloud-storage with node, you must be running __node 0.12.0__ or higher for generator and promise support, and must run node(1)
   with the `--harmony-generators` or `--harmony` flag.
