@@ -81,7 +81,7 @@ describe(' status', function() {
             })
             .expect(200)
             .end()
-        assert(res.body.length > 0, true)
+        assert.equal(res.body.length > 0, true)
         done()
     })
     it(' status/info socket.io 200', function*(done) {
@@ -100,7 +100,7 @@ describe(' status', function() {
                 time: time
             }
         }, function(body) {
-            assert(body.length > 0, true)
+            assert.equal(body.length > 0, true)
             done()
         })
     })

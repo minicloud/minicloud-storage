@@ -13,13 +13,13 @@ describe(' file-helpers.js', function() {
     })
     it('getFileSha1', function*(done) {
         var hash = yield fileHelpers.getFileSha1('./test/test-files/lt-1k.js')
-        assert(hash, '47618d22b1830e42684579364e62f89000237433')
+        assert.equal(hash, '47618d22b1830e42684579364e62f89000237433')
         done()
     })
     it('find', function*(done) {
         var paths = ['./test/test-files/find/a', './test/test-files/find/b', './test/test-files/find/c']
         var path = yield fileHelpers.find(paths, '47618d22b1830e42684579364e62f89000237433')
-        assert(fs.existsSync(path), true)
+        assert.equal(fs.existsSync(path), true)
         done()
     })
     it('merge miniyun v1.5', function*(done) {
@@ -29,9 +29,9 @@ describe(' file-helpers.js', function() {
         }
         var paths = ['./test/test-files/merge/a', './test/test-files/merge/b', './test/test-files/merge/c']
         var path = yield fileHelpers.find(paths, '47618d22b1830e42684579364e62f89000237433')
-        assert(fs.existsSync(path), true)
+        assert.equal(fs.existsSync(path), true)
         var hash = yield fileHelpers.getFileSha1(path)
-        assert(hash, '47618d22b1830e42684579364e62f89000237433')
+        assert.equal(hash, '47618d22b1830e42684579364e62f89000237433')
         if (fs.existsSync(cachePath)) {
             fs.unlinkSync(cachePath)
         }
@@ -43,7 +43,7 @@ describe(' file-helpers.js', function() {
         if (!oldPath) {
             var newPath = fileHelpers.getFilePath(paths, '57618d22b1830e42684579364e62f89000237433')
             var existed = fs.existsSync(newPath)
-            assert(!existed, true)
+            assert.equal(!existed, true)
         }
         done()
     })
@@ -59,19 +59,19 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', '256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'hac')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', '1h32')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'wah32')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, 'abc.png', 'w32h32')
                 var pos = thumbnailPath.indexOf('32x32')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -90,7 +90,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -109,7 +109,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -128,7 +128,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -147,7 +147,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -166,7 +166,7 @@ describe(' file-helpers.js', function() {
                 co.wrap(function*() {
                     var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                     var pos = thumbnailPath.indexOf('256x256')
-                    assert(pos > 1, true)
+                    assert.equal(pos > 1, true)
                     done()
                 })()
             })
@@ -184,7 +184,7 @@ describe(' file-helpers.js', function() {
         //             co.wrap(function*() {
         //                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
         //                 var pos = thumbnailPath.indexOf('256x256')
-        //                 assert(pos > 1, true)
+        //                 assert.equal(pos > 1, true)
         //                 done()
         //             })()
         //         })
@@ -203,7 +203,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -222,7 +222,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })
@@ -241,7 +241,7 @@ describe(' file-helpers.js', function() {
             co.wrap(function*() {
                 var thumbnailPath = yield fileHelpers.createThumbnail(aimPath, path.basename(aimPath), 'w256h256')
                 var pos = thumbnailPath.indexOf('256x256')
-                assert(pos > 1, true)
+                assert.equal(pos > 1, true)
                 done()
             })()
         })

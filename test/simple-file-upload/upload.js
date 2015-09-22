@@ -93,10 +93,10 @@ describe(' files/upload_session/send', function() {
         res.body.size.should.equal(452)
             //assert data 
         var path = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
-        assert(fs.existsSync(path), true)
+        assert.equal(fs.existsSync(path), true)
             //assert cache
         var files = yield fsPlus.walk(global.appContext.cache)
-        assert(files.length + 1, 1)
+        assert.equal(files.length + 1, 1)
         done()
     })
     it(' /files/upload_session/send socket.io 200', function*(done) {
