@@ -153,10 +153,10 @@ describe(' files/upload_session/block_append', function() {
         var filePath = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
         assert(fs.existsSync(filePath), true)
             //assert cache
-        var files = yield fsPlus.walk('./cache')
+        var files = yield fsPlus.walk(global.appContext.cache)
         assert(files.length + 1, 1)
             //assert block
-        var files = yield fsPlus.walk('./block')
+        var files = yield fsPlus.walk(global.appContext.block)
         assert(files.length + 1, 1)
         done()
     })

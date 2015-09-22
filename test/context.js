@@ -43,10 +43,11 @@ exports.getApp = function*() {
         var app = yield require('../')()
         global.app = app.listen()
         global.socket = yield initSocketClient(app)
-    }
-    _deleteFolder('./cache')
-    _deleteFolder('./data')
-    yield fsPlus.mkdirp('./cache')
-    yield fsPlus.mkdirp('./data')
+    } 
+    _deleteFolder('./upload_files') 
+    yield fsPlus.mkdirp('./upload_files/cache/block')
+    yield fsPlus.mkdirp('./upload_files/a/')
+    yield fsPlus.mkdirp('./upload_files/b/')
+    yield fsPlus.mkdirp('./upload_files/c/')
     return global.app
 }

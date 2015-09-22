@@ -1,5 +1,3 @@
-/data
 /logs
-/cache
-/block
+/upload_files
 node_modules

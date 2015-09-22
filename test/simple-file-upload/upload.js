@@ -95,7 +95,7 @@ describe(' files/upload_session/send', function() {
         var path = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
         assert(fs.existsSync(path), true)
             //assert cache
-        var files = yield fsPlus.walk('./cache')
+        var files = yield fsPlus.walk(global.appContext.cache)
         assert(files.length + 1, 1)
         done()
     })

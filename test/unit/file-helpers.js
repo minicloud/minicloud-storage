@@ -51,7 +51,7 @@ describe(' file-helpers.js', function() {
         var fs = require('fs')
         var co = require('co')
         var sourcePath = './test/test-files/test.jpg'
-        var aimPath = './data/abc.jpg'
+        var aimPath = global.appContext.path[0]+'/abc.jpg'
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -82,7 +82,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.ai'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -101,7 +101,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.psd'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -120,7 +120,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.jpg'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -139,7 +139,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.gif'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -158,7 +158,7 @@ describe(' file-helpers.js', function() {
             var co = require('co')
             var path = require('path')
             var sourcePath = './test/test-image/test.bmp'
-            var aimPath = './data/' + path.basename(sourcePath)
+            var aimPath = global.appContext.path[0] + path.basename(sourcePath)
             var readStream = fs.createReadStream(sourcePath)
             var writeFile = fs.createWriteStream(aimPath)
             readStream.pipe(writeFile)
@@ -195,7 +195,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.eps'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -214,7 +214,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.tif'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
@@ -233,7 +233,7 @@ describe(' file-helpers.js', function() {
         var co = require('co')
         var path = require('path')
         var sourcePath = './test/test-image/test.png'
-        var aimPath = './data/' + path.basename(sourcePath)
+        var aimPath = global.appContext.path[0] + path.basename(sourcePath)
         var readStream = fs.createReadStream(sourcePath)
         var writeFile = fs.createWriteStream(aimPath)
         readStream.pipe(writeFile)
