@@ -31,7 +31,7 @@ describe(' files/thumbnail/content', function() {
         var sessionId = '1234'
         var time = new Date().getTime()
         time -= 24 * 60 * 60 * 1000 + 10
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/thumbnail/content?hash=123456&name=1.png&signature=' + signature + '&time=' + time)
             .type('json')
@@ -43,7 +43,7 @@ describe(' files/thumbnail/content', function() {
     it(' /files/thumbnail/content 409 hash_not_exist', function*(done) {
         var hash = '1234'
         var time = new Date().getTime()
-        var signature = md5(hash + time + global.appContext.safe_code)
+        var signature = md5(hash + time + global.storeContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/thumbnail/content?hash=' + hash + '&name=1.doc&signature=' + signature + '&time=' + time)
             .type('json')
@@ -56,7 +56,7 @@ describe(' files/thumbnail/content', function() {
         //upload file
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var filePath = './test/test-files/test.jpg'
         yield request(app)
             .post('/api/v1/files/upload_session/send')
@@ -73,7 +73,7 @@ describe(' files/thumbnail/content', function() {
             //thumbnail
         var hash = '3f508ce9d029e909cfef52f3b47d88204d79eced'
         var time = new Date().getTime()
-        var signature = md5(hash + time + global.appContext.safe_code)
+        var signature = md5(hash + time + global.storeContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/thumbnail/content?hash=' + hash + '&name=test.jpg&signature=' + signature + '&time=' + time + '&size=w32h32')
             .expect(200)

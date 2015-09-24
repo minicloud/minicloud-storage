@@ -11,7 +11,7 @@ describe(' status', function() {
         return done()
     })
     it(' status/info 400', function*(done) {
-        var paths = global.appContext.path
+        var paths = global.storeContext.path
         for (var i = 0; i < paths.length; i++) {
             var subPath = paths[i]
             yield file.mkdirp(subPath)
@@ -24,7 +24,7 @@ describe(' status', function() {
         done()
     })
     it(' status/info 401', function*(done) {
-        var paths = global.appContext.path
+        var paths = global.storeContext.path
         for (var i = 0; i < paths.length; i++) {
             var subPath = paths[i]
             yield file.mkdirp(subPath)
@@ -48,7 +48,7 @@ describe(' status', function() {
         var sessionId = '1234'
         var time = new Date().getTime()
         time-=24*60*60*1000+10
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
@@ -63,14 +63,14 @@ describe(' status', function() {
         done()
     })
     it(' status/info 200', function*(done) {
-        var paths = global.appContext.path
+        var paths = global.storeContext.path
         for (var i = 0; i < paths.length; i++) {
             var subPath = paths[i]
             yield file.mkdirp(subPath)
         }
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/status/info')
             .type('json')
@@ -85,14 +85,14 @@ describe(' status', function() {
         done()
     })
     it(' status/info socket.io 200', function*(done) {
-        var paths = global.appContext.path
+        var paths = global.storeContext.path
         for (var i = 0; i < paths.length; i++) {
             var subPath = paths[i]
             yield file.mkdirp(subPath)
         }
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         global.socket.emit('/api/v1/status/info', {
             data: {
                 signature: signature,

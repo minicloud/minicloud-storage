@@ -31,7 +31,7 @@ describe(' files/download/content', function() {
         var sessionId = '1234'
         var time = new Date().getTime()
         time -= 24 * 60 * 60 * 1000 + 10
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/download/content?hash=123456&name=1.doc&signature=' + signature + '&time=' + time)
             .type('json')
@@ -43,7 +43,7 @@ describe(' files/download/content', function() {
     it(' /files/download/content 409 hash_not_exist', function*(done) {
         var hash = '1234'
         var time = new Date().getTime()
-        var signature = md5(hash + time + global.appContext.safe_code)
+        var signature = md5(hash + time + global.storeContext.safe_code)
         var res = yield request(app)
             .get('/api/v1/files/download/content?hash=' + hash + '&name=1.doc&signature=' + signature + '&time=' + time)
             .type('json')
@@ -56,7 +56,7 @@ describe(' files/download/content', function() {
         //upload file
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         yield request(app)
             .post('/api/v1/files/upload_session/send')
             .set({
@@ -72,7 +72,7 @@ describe(' files/download/content', function() {
             //download file
         var hash = '47618d22b1830e42684579364e62f89000237433'
         var time = new Date().getTime()
-        var signature = md5(hash + time + global.appContext.safe_code)
+        var signature = md5(hash + time + global.storeContext.safe_code)
         yield request(app)
             .get('/api/v1/files/download/content?hash=' + hash + '&name=测试.doc&signature=' + signature + '&time=' + time)
             .expect(200)

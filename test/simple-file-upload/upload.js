@@ -40,7 +40,7 @@ describe(' files/upload_session/send', function() {
         var sessionId = '1234'
         var time = new Date().getTime()
         time -= 24 * 60 * 60 * 1000 + 10
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .type('json')
@@ -57,7 +57,7 @@ describe(' files/upload_session/send', function() {
     it(' /files/upload_session/send 409 empty file', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .type('multipart/form')
@@ -76,7 +76,7 @@ describe(' files/upload_session/send', function() {
     it(' /files/upload_session/send 200', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/send')
             .set({
@@ -92,17 +92,17 @@ describe(' files/upload_session/send', function() {
         res.body.hash.should.equal('47618d22b1830e42684579364e62f89000237433')
         res.body.size.should.equal(452)
             //assert data 
-        var path = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
+        var path = yield fileHelpers.find(global.storeContext.path, '47618d22b1830e42684579364e62f89000237433')
         assert.equal(fs.existsSync(path), true)
             //assert cache
-        var files = yield fsPlus.walk(global.appContext.cache)
+        var files = yield fsPlus.walk(global.storeContext.cache)
         assert.equal(files.length + 1, 1)
         done()
     })
     it(' /files/upload_session/send socket.io 200', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var fs = require('fs')
         fs.readFile('./test/test-files/lt-1k.js', function(err, buf) {
             global.socket.emit('/api/v1/files/upload_session/send', {

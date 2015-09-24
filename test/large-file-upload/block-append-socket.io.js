@@ -10,7 +10,7 @@ var md5 = require('md5')
 var uploadBlock = function(blockInfo) {
     var sessionId = '1234'
     var time = new Date().getTime()
-    var signature = md5(sessionId + time + global.appContext.safe_code)
+    var signature = md5(sessionId + time + global.storeContext.safe_code)
     var fs = require('fs')
     var rootPath = './test/test-files/merge/a/47/61/8d/22/47618d22b1830e42684579364e62f89000237433'
     var blockPath = path.join(rootPath, blockInfo.file_name)
@@ -44,7 +44,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_append socket.io 200', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var blocks = [{
             offset: 0,
             file_name: '47618d22b1830e42684579364e62f89000237433'
@@ -80,13 +80,13 @@ describe(' files/upload_session/block_append', function() {
                 body.hash.should.equal('47618d22b1830e42684579364e62f89000237433')
                 body.size.should.equal(452)
                     //assert data  
-                var filePath = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
+                var filePath = yield fileHelpers.find(global.storeContext.path, '47618d22b1830e42684579364e62f89000237433')
                 assert.equal(fs.existsSync(filePath), true)
                     //assert cache
-                var files = yield fsPlus.walk(global.appContext.cache)
+                var files = yield fsPlus.walk(global.storeContext.cache)
                 assert.equal(files.length + 1, 1)
                     //assert block
-                var files = yield fsPlus.walk(global.appContext.block)
+                var files = yield fsPlus.walk(global.storeContext.block)
                 assert.equal(files.length + 1, 1)
                 done()
             })()

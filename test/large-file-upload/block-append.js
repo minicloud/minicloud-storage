@@ -42,7 +42,7 @@ describe(' files/upload_session/block_append', function() {
         var sessionId = '1234'
         var time = new Date().getTime()
         time -= 24 * 60 * 60 * 1000 + 10
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_append')
             .type('json')
@@ -61,7 +61,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_append 409 empty_block', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_append')
             .type('multipart/form')
@@ -81,7 +81,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_append 400 check offset', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_append')
             .type('json')
@@ -100,7 +100,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_append 200', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var rootPath = './test/test-files/merge/a/47/61/8d/22/47618d22b1830e42684579364e62f89000237433'
         var blocks = [{
             offset: 0,
@@ -150,13 +150,13 @@ describe(' files/upload_session/block_append', function() {
         res.body.hash.should.equal('47618d22b1830e42684579364e62f89000237433')
         res.body.size.should.equal(452)
             //assert data  
-        var filePath = yield fileHelpers.find(global.appContext.path, '47618d22b1830e42684579364e62f89000237433')
+        var filePath = yield fileHelpers.find(global.storeContext.path, '47618d22b1830e42684579364e62f89000237433')
         assert.equal(fs.existsSync(filePath), true)
             //assert cache
-        var files = yield fsPlus.walk(global.appContext.cache)
+        var files = yield fsPlus.walk(global.storeContext.cache)
         assert.equal(files.length + 1, 1)
             //assert block
-        var files = yield fsPlus.walk(global.appContext.block)
+        var files = yield fsPlus.walk(global.storeContext.block)
         assert.equal(files.length + 1, 1)
         done()
     })
@@ -171,7 +171,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_finish 401', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_finish')
             .type('json')
@@ -188,7 +188,7 @@ describe(' files/upload_session/block_append', function() {
     it(' /files/upload_session/block_finish 409', function*(done) {
         var sessionId = '1234'
         var time = new Date().getTime()
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_finish')
             .type('json')
@@ -206,7 +206,7 @@ describe(' files/upload_session/block_append', function() {
         var sessionId = '1234'
         var time = new Date().getTime()
         time -= 24 * 60 * 60 * 1000 + 10
-        var signature = md5(sessionId + time + global.appContext.safe_code)
+        var signature = md5(sessionId + time + global.storeContext.safe_code)
         var res = yield request(app)
             .post('/api/v1/files/upload_session/block_finish')
             .type('json')
