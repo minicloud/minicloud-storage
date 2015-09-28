@@ -56,7 +56,7 @@
         "socket.io-client": "~1.3.4"
     },
     "engines": {
-        "node": ">= 0.11.16",
+        "node": ">= 0.12.0",
         "iojs": ">= 1.0.0"
     },
     "files": [
