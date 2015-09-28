@@ -1,6 +1,6 @@
 {
     "name": "minicloud-storage",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "minicloud Lightweight distributed file storage",
     "main": "index.js",
     "scripts": {
@@ -60,7 +60,8 @@
         "iojs": ">= 1.0.0"
     },
     "files": [
-        "lib"
+        "lib",
+        "index.js"
     ],
     "author": "",
     "bugs": {
