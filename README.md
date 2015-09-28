@@ -4,7 +4,7 @@
   [![devDependency Status](https://david-dm.org/atom/electron/dev-status.svg)](https://david-dm.org/minicloud/minicloud-storage#info=devDependencies)
   
 
-  minicloud-storage v0.5.5,Lightweight distributed file storage.
+  lightweight distributed file storage module.
 
   It is a minicloud file storage module.it can be deployed separately.
 
@@ -23,11 +23,9 @@ require('co').wrap(function*(){
 })()
 
 ```
-## Run Server(node>0.12.0)
+## Run Server
 ```
-$ node --harmony index.js
-or
-$ iojs index.js
+$ node index.js 
 ```
 ## Test case
 ```
