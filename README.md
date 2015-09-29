@@ -16,7 +16,7 @@ $ npm install minicloud-storage co
 ```
 
 ## Create file index.js
-```
+```js
 require('co').wrap(function*(){
 	var app = yield require('minicloud-storage')()
 	app.listen(8031)
