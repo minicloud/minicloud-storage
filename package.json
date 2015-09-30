@@ -1,6 +1,6 @@
 {
     "name": "minicloud-storage",
-    "version": "0.0.2",
+    "version": "0.0.10",
     "description": "minicloud Lightweight distributed file storage",
     "main": "index.js",
     "scripts": {
